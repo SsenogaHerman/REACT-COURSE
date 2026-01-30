@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { HomePage } from './pages/home/HomePage'
 
 import './App.css'
-import { CheckoutPage } from './pages/CheckOut'
-import { OrdersPage } from './pages/OrdersPage'
+import { CheckoutPage } from './pages/checkout/CheckOut'
+import { OrdersPage } from './pages/orders/OrdersPage'
 import { TrackingPage } from './pages/TrackingPage'
 
 function App() {
