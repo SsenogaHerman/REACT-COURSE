@@ -147,3 +147,12 @@
   width: 26px;
   text-align: center;
 }
+
+.store-name {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
