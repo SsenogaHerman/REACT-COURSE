@@ -7,7 +7,7 @@ import './checkout-header.css'
 import { OrderSummary } from './OrderSummary';
 import { PaymentSumary } from './PaymentSummary';
 
-export function CheckoutPage({ cart }) {
+export function CheckoutPage({ cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions]= useState([]);
   const [paymentSummary, setPaymentSummary]=useState();
   
@@ -15,11 +15,10 @@ export function CheckoutPage({ cart }) {
   useEffect(
       ()=>{
         const fetchCheckOutData= async()=>{
-          let response=await  axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
+          const response=await  axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
            setDeliveryOptions(response.data);
 
-       response=  await axios.get('/api/payment-summary');
-         setPaymentSummary(response.data);
+      
 
 } 
   
@@ -30,15 +29,29 @@ export function CheckoutPage({ cart }) {
       },[]
   );
 
+
+  useEffect(
+    ()=>{
+      const fetchPaymentSummaryData=async()=>{
+        const response=  await axios.get('/api/payment-summary');
+         setPaymentSummary(response.data);
+
+      }
+      fetchPaymentSummaryData();
+
+    },
+    [cart]
+
+  );
+
   return (
     <>
       <title>Checkout</title>
       <div className="checkout-header">
         <div className="header-content">
           <div className="checkout-header-left-section">
-            <a href="/">
-              <img className="logo" src="images/logo.png" />
-              <img className="mobile-logo" src="images/mobile-logo.png" />
+            <a href="/" className="store-link">
+              <p className='checkout-store-name'>Orley Online Store</p>
             </a>
           </div>
 
@@ -57,7 +70,7 @@ export function CheckoutPage({ cart }) {
         <div className="page-title">Review your order</div>
 
         <div className="checkout-grid">
-        <OrderSummary cart={cart} deliveryOptions={deliveryOptions} />
+        <OrderSummary cart={cart} deliveryOptions={deliveryOptions} loadCart={loadCart} />
          <PaymentSumary paymentSummary={paymentSummary}/>
         </div>
       </div>
